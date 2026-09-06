@@ -1,18 +1,18 @@
 version: '3.8'
 
 services:
-  db_cliente:
+  devsudbcliente:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: db_cliente
+    container_name: devsudbcliente
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=YourPassword123!
     ports:
       - "1433:1433"
 
-  db_movimientos:
+  devsudbmovimientos:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: db_movimientos
+    container_name: devsudbmovimientos
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=YourPassword123!
@@ -40,10 +40,10 @@ services:
       - "8081:8081"
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
-      - ConnectionStrings__DefaultConnection=Server=db_cliente;Database=DevSuDBCliente;User Id=sa;Password=YourPassword123!;TrustServerCertificate=True;
+      - ConnectionStrings__DefaultConnection=Server=devsudbcliente;Database=DevSuDBCliente;User Id=sa;Password=YourPassword123!;TrustServerCertificate=True;
       - RabbitMQ__Host=rabbitmq
     depends_on:
-      - db_cliente
+      - devsudbcliente
       - rabbitmq
 
   cuenta-movimiento-api:
@@ -55,8 +55,9 @@ services:
       - "8082:8082"
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
-      - ConnectionStrings__DefaultConnection=Server=db_movimientos;Database=DevSuDBMovimientos;User Id=sa;Password=YourPassword123!;TrustServerCertificate=True;
+      - ConnectionStrings__DefaultConnection=Server=devsudbmovimientos;Database=DevSuDBMovimientos;User Id=sa;Password=YourPassword123!;TrustServerCertificate=True;
       - RabbitMQ__Host=rabbitmq
     depends_on:
-      - db_movimientos
+      - devsudbmovimientos
       - rabbitmq
+

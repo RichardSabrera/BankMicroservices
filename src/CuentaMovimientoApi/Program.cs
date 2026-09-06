@@ -1,3 +1,4 @@
+using CuentaMovimientoApi.Application.Services;
 using CuentaMovimientoApi.Data;
 using CuentaMovimientoApi.Infrastructure.Persistence;
 using CuentaMovimientoApi.Services;
@@ -23,6 +24,9 @@ else
         options.UseSqlServer(connectionString));
 }
 
+builder.Services.AddScoped<ICuentaService, CuentaService>();
+builder.Services.AddScoped<IMovimientoService, MovimientoService>();
+builder.Services.AddScoped<IReporteService, ReporteService>();
 builder.Services.AddHostedService<RabbitMqConsumer>();
 
 var app = builder.Build();

@@ -1,262 +1,309 @@
 {
-	"info": {
-		"_postman_id": "b3e921d7-391d-4001-a18f-bank-microservices",
-		"name": "Microservicios Banco Devsu API",
-		"description": "Colección completa de pruebas para los microservicios bancarios (.NET 8 + SQL Server DevSuDB + RabbitMQ)",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Clientes",
-			"item": [
-				{
-					"name": "1. Obtener Todos los Clientes",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8081/api/clientes",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8081",
-							"path": ["api", "clientes"]
-						}
-					}
-				},
-				{
-					"name": "2. Crear Cliente (Sin clienteId - Genera Hash CLI-XXXXXX)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"nombre\": \"Carlos Andrade\",\n  \"genero\": \"Masculino\",\n  \"edad\": 28,\n  \"identificacion\": \"1722334455\",\n  \"direccion\": \"Av. Shyris 123\",\n  \"telefono\": \"099112233\",\n  \"contrasena\": \"9988\",\n  \"estado\": true\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8081/api/clientes",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8081",
-							"path": ["api", "clientes"]
-						}
-					}
-				},
-				{
-					"name": "3. Crear Cliente (Con clienteId Específico)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"nombre\": \"Jose Lema\",\n  \"genero\": \"Masculino\",\n  \"edad\": 35,\n  \"identificacion\": \"1712345678\",\n  \"direccion\": \"Otavalo sn y principal\",\n  \"telefono\": \"098254785\",\n  \"clienteId\": \"Jose Lema\",\n  \"contrasena\": \"1234\",\n  \"estado\": true\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8081/api/clientes",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8081",
-							"path": ["api", "clientes"]
-						}
-					}
-				},
-				{
-					"name": "4. Obtener Cliente por ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8081/api/clientes/1",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8081",
-							"path": ["api", "clientes", "1"]
-						}
-					}
-				},
-				{
-					"name": "5. Actualizar Cliente (PUT)",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": 1,\n  \"nombre\": \"Jose Lema Actualizado\",\n  \"genero\": \"Masculino\",\n  \"edad\": 36,\n  \"identificacion\": \"1712345678\",\n  \"direccion\": \"Otavalo sn y principal modificado\",\n  \"telefono\": \"098254785\",\n  \"clienteId\": \"Jose Lema\",\n  \"contrasena\": \"1234\",\n  \"estado\": true\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8081/api/clientes/1",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8081",
-							"path": ["api", "clientes", "1"]
-						}
-					}
-				},
-				{
-					"name": "6. Eliminar Cliente",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8081/api/clientes/1",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8081",
-							"path": ["api", "clientes", "1"]
-						}
-					}
-				}
-			]
-		},
-		{
-			"name": "Cuentas",
-			"item": [
-				{
-					"name": "1. Obtener Todas las Cuentas",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8082/api/cuentas",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8082",
-							"path": ["api", "cuentas"]
-						}
-					}
-				},
-				{
-					"name": "2. Crear Cuenta Corriente para Jose Lema (ClienteId = 1)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"numeroCuenta\": \"585545\",\n  \"tipoCuenta\": \"Corriente\",\n  \"saldoInicial\": 1000,\n  \"estado\": true,\n  \"clienteId\": 1\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8082/api/cuentas",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8082",
-							"path": ["api", "cuentas"]
-						}
-					}
-				}
-			]
-		},
-		{
-			"name": "Movimientos",
-			"item": [
-				{
-					"name": "1. Obtener Todos los Movimientos",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8082/api/movimientos",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8082",
-							"path": ["api", "movimientos"]
-						}
-					}
-				},
-				{
-					"name": "2. Registrar Depósito (+600)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"numeroCuenta\": \"225487\",\n  \"tipoMovimiento\": \"Deposito de 600\",\n  \"valor\": 600\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8082/api/movimientos",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8082",
-							"path": ["api", "movimientos"]
-						}
-					}
-				},
-				{
-					"name": "3. Registrar Retiro Excesivo (Retorna Error 'Saldo no disponible')",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"numeroCuenta\": \"495878\",\n  \"tipoMovimiento\": \"Retiro de 500\",\n  \"valor\": -500\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8082/api/movimientos",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8082",
-							"path": ["api", "movimientos"]
-						}
-					}
-				}
-			]
-		},
-		{
-			"name": "Reportes",
-			"item": [
-				{
-					"name": "1. Reporte Estado de Cuenta por ClienteId (Marianela Montalvo - ID 2)",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8082/api/reportes?fecha=2022-02-01,2022-02-28&clienteId=2",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8082",
-							"path": ["api", "reportes"],
-							"query": [
-								{
-									"key": "fecha",
-									"value": "2022-02-01,2022-02-28"
-								},
-								{
-									"key": "clienteId",
-									"value": "2"
-								}
-							]
-						}
-					}
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "5ed54bc4-4243-450a-9d4e-9e8e13ff6a6d",
+    "name": "Microservicios Banco Devsu API Copy 2",
+    "description": "Colección completa de pruebas para los microservicios bancarios (.NET 8 + SQL Server DevSuDB + RabbitMQ)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1300151"
+  },
+  "item": [
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "1. Obtener Todos los Clientes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5126/api/clientes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. Crear Cliente (Sin clienteId - Genera Hash CLI-XXXXXX)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Richard Sabrera\",\n  \"genero\": \"Masculino\",\n  \"edad\": 28,\n  \"identificacion\": \"2722334455\",\n  \"direccion\": \"Av. Shyris 123\",\n  \"telefono\": \"099112233\",\n  \"contrasena\": \"9988\",\n  \"estado\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5126/api/clientes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. Obtener Cliente por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5126/api/clientes/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "clientes",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4. Actualizar Cliente (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"nombre\": \"Jose Lema Actualizado\",\n  \"genero\": \"Masculino\",\n  \"edad\": 36,\n  \"identificacion\": \"1712345678\",\n  \"direccion\": \"Otavalo sn y principal modificado\",\n  \"telefono\": \"098254785\",\n  \"clienteId\": \"Jose Lema\",\n  \"contrasena\": \"1234\",\n  \"estado\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5126/api/clientes/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "clientes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "5. Eliminar Cliente",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5126/api/clientes/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "clientes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cuentas",
+      "item": [
+        {
+          "name": "1. Obtener Todas las Cuentas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5259/api/cuentas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5259",
+              "path": [
+                "api",
+                "cuentas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. Crear Cuenta Corriente para Jose Lema (ClienteId = 1)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"585546\",\n  \"tipoCuenta\": \"Corriente\",\n  \"saldoInicial\": 1000,\n  \"estado\": true,\n  \"clienteId\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5259/api/cuentas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5259",
+              "path": [
+                "api",
+                "cuentas"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Movimientos",
+      "item": [
+        {
+          "name": "1. Obtener Todos los Movimientos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5259/api/movimientos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5259",
+              "path": [
+                "api",
+                "movimientos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. Registrar Depósito (+600)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"495878\",\n  \"tipoMovimiento\": \"Deposito de 800\",\n  \"valor\": 800\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5259/api/movimientos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5259",
+              "path": [
+                "api",
+                "movimientos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. Registrar Retiro Excesivo (Retorna Error 'Saldo no disponible')",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"495878\",\n  \"tipoMovimiento\": \"Retiro de 500\",\n  \"valor\": -500\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5259/api/movimientos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5259",
+              "path": [
+                "api",
+                "movimientos"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reportes",
+      "item": [
+        {
+          "name": "1. Reporte Estado de Cuenta por ClienteId (Marianela Montalvo - ID 2)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5259/api/reportes?fecha=2026-01-01,2026-10-28&clienteId=2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5259",
+              "path": [
+                "api",
+                "reportes"
+              ],
+              "query": [
+                {
+                  "key": "fecha",
+                  "value": "2026-01-01,2026-10-28"
+                },
+                {
+                  "key": "clienteId",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
 }
