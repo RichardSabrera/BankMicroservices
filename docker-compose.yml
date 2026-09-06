@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  db_cliente:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: db_cliente
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourPassword123!
+    ports:
+      - "1433:1433"
+
+  db_movimientos:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: db_movimientos
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourPassword123!
+    ports:
+      - "1434:1433"
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  cliente-persona-api:
+    build:
+      context: .
+      dockerfile: src/ClientePersonaApi/Dockerfile
+    container_name: cliente_persona_api
+    ports:
+      - "8081:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ConnectionStrings__DefaultConnection=Server=db_cliente;Database=DevSuDBCliente;User Id=sa;Password=YourPassword123!;TrustServerCertificate=True;
+      - RabbitMQ__Host=rabbitmq
+    depends_on:
+      - db_cliente
+      - rabbitmq
+
+  cuenta-movimiento-api:
+    build:
+      context: .
+      dockerfile: src/CuentaMovimientoApi/Dockerfile
+    container_name: cuenta_movimiento_api
+    ports:
+      - "8082:8082"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ConnectionStrings__DefaultConnection=Server=db_movimientos;Database=DevSuDBMovimientos;User Id=sa;Password=YourPassword123!;TrustServerCertificate=True;
+      - RabbitMQ__Host=rabbitmq
+    depends_on:
+      - db_movimientos
+      - rabbitmq

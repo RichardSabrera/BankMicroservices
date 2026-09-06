@@ -1,0 +1,51 @@
+## Visual Studio / Roslyn / MSBuild
+bin/
+obj/
+out/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]uild/
+[Aa]rtifacts/
+TestResults/
+
+## Visual Studio Cache & User Files
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.userprefs
+*.pidb
+*.booproj
+*.svclog
+*.cache
+
+## JetBrains Rider / Resharper
+.idea/
+*.sln.iml
+_ReSharper.*/
+
+## VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+## Docker / Temporary Files
+.docker/
+*.log
+
+## OS Generated Files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+## Environment & Local Secrets
+appsettings.Development.json
+appsettings.Local.json
+.env
+*.env
